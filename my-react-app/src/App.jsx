@@ -12,8 +12,27 @@ import car from './Car'
 var hello = ()=>{
  return "Hello World!"
 };
-function Counter(){
-  const [count, setCount] = useState(0);
+
+function Call(){
+  var carObj = {
+    brand: "Ford",
+    model: "Mustang",
+    year: 1964,
+    color: "red",
+    fullDetails: function() {
+      return this.brand + " " + this.model + " (" + this.year + ") - " + this.color;
+    }
+  }
+return (
+  <div>
+    <h1>Call Method:</h1>
+    <p>{carObj.fullDetails()}</p>
+  </div>
+);
+}
+
+function Counter({initialCount = 0}) {
+  const [count, setCount] = useState(initialCount);
   return (
     <button type="button" onClick={() => setCount((count) => count + 1)}>
       <h1>Counter</h1>
@@ -31,10 +50,30 @@ function GetName({name, setName}){
     </div>
   );
 }
+function CarAlert() {
+  const style={
+    color: "blue",
+    fontSize: "20px",
+    fontWeight: "bold"
+  }
+
+  const myfunc = () => {
+    alert('Hello World');
+  };
+  return (
+    <button style={style} className='btn-primary' onClick={myfunc}>Click me</button>
+  );
+}
+
+
+
 function App() {
   
   const [count, setCount] = useState(0)
     const [name, setName] = useState("");
+    
+    
+    const element = <h1>Hello, world!</h1>;
 const model =["BMW", "Volvo", "Saab", "Ford"];
 var [s,...specificModel] = model;
 console.log("model: ", s, "specificModel: ", specificModel);
@@ -43,6 +82,7 @@ console.log("model: ", s, "specificModel: ", specificModel);
   window.addEventListener("load", c.changeColor);
   return (
   <>
+ <Call> sales car</Call> {/*-- call method deesn't work in input element text given in the elements */}
     <div>
       <h1>Welcome to Website</h1>
       <h2>{c.display()}</h2>
@@ -51,8 +91,10 @@ console.log("model: ", s, "specificModel: ", specificModel);
     <div id="demo" style={{ color: "blue" }}>Hi </div>
     {/* {c.MyList({values: ["BMW", "Volvo", "Saab", "Ford"]})} */}
     <c.MyList values={["BMW", "Volvo", "Saab", "Ford"]} />
-    <Counter />
+    <Counter initialCount={11} />
     <GetName name={name} setName={setName} />
+    {element}
+    <CarAlert />
   </>
 
     /*
