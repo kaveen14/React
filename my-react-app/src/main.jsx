@@ -7,10 +7,8 @@ import App from './App.jsx'
     // const element = <input type="text" value="Hello, world!" />;
 
 createRoot(document.getElementById('root')).render(
-  // element
-  // <App />
-  <StrictMode>
+  // <StrictMode>
     <App />
-  </StrictMode>
-  
+  // </StrictMode>,
 )
+// ReactDOM.render(React.createElement(App), document.getElementById('root'));  -- available only below 18 version of react

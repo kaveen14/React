@@ -3,7 +3,9 @@ import { useState } from 'react'
 // import viteLogo from './assets/vite.svg'
 // import heroImg from './assets/hero.png'
 // import './App.css'
-import car from './Car'
+import {car, CarManufacature} from './Car'
+import {createRoot} from 'react-dom/client'
+// import {carManufacture} from './Car'
 
 // hello=function(){
 //   return "Hello World";
@@ -12,7 +14,24 @@ import car from './Car'
 var hello = ()=>{
  return "Hello World!"
 };
+function Counter(){
+  const [count, setCount] = useState(0);
+  return (
+    <button type="button" onClick={() => setCount((count) => count + 1)}>
+      <h1>Counter</h1>
+      <p>Count: {count}</p>
+      </button>
+      );
+}
 
+const GetDescription = (description)=>{
+  return (
+    <div style={{background: 'lightgreen'}}>
+    <h1>Son: </h1>
+    <p>{description.children}</p> 
+    </div>
+  )
+}
 function Call(){
   var carObj = {
     brand: "Ford",
@@ -30,7 +49,6 @@ return (
   </div>
 );
 }
-
 function Counter({initialCount = 0}) {
   const [count, setCount] = useState(initialCount);
   return (
@@ -40,7 +58,25 @@ function Counter({initialCount = 0}) {
       </button>
       );
 }
+// const GetDescription = ({ description, children })=>{
+//   return (
+//     <div style={{background: 'lightgreen'}}>
+//     <h1>Son: </h1>
+//     <p>{description}</p> 
+//     <h1>daughter: </h1>
+//     <p>{children}</p> 
+//     </div>
+//   )
+// }
+function CarList(){
+  const values = (a,b)=>{
+    alert(b.type);
+  }
 
+  return (
+    <button onClick={(event)=> values("car type event",event)}>Show List</button>
+  );
+}
 function GetName({name, setName}){
   return (
     <div>
@@ -50,13 +86,15 @@ function GetName({name, setName}){
     </div>
   );
 }
+const ChangesColor = ({color, name}) => {
+        return (<h1 style={{color: color}}>My Car is {name} : {color}</h1>);
+    }
 function CarAlert() {
   const style={
     color: "blue",
     fontSize: "20px",
     fontWeight: "bold"
   }
-
   const myfunc = () => {
     alert('Hello World');
   };
@@ -71,12 +109,9 @@ function App() {
   
   const [count, setCount] = useState(0)
     const [name, setName] = useState("");
-    
-    
-    const element = <h1>Hello, world!</h1>;
 const model =["BMW", "Volvo", "Saab", "Ford"];
 var [s,...specificModel] = model;
-console.log("model: ", s, "specificModel: ", specificModel);
+console.log("model: ", s, ", specificModel: ", specificModel);
   const c= new car(name || "BMW", "2014");
   // const hello = ()=> "Hello World!";
   window.addEventListener("load", c.changeColor);
@@ -93,10 +128,14 @@ console.log("model: ", s, "specificModel: ", specificModel);
     <c.MyList values={["BMW", "Volvo", "Saab", "Ford"]} />
     <Counter initialCount={11} />
     <GetName name={name} setName={setName} />
-    {element}
+{element}
     <CarAlert />
+    <CarManufacature name = 'Mustang' />
+    <ChangesColor color="red" name="BMW" />
+    <GetDescription description='contain some concept'>the concept of props is to pass data from parent component to child component.
+       The child component can access the data passed from the parent component through props.</GetDescription>
+       <CarList/>
   </>
-
     /*
     <>
       <section id="center">
