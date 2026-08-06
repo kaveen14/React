@@ -14,24 +14,7 @@ import {createRoot} from 'react-dom/client'
 var hello = ()=>{
  return "Hello World!"
 };
-function Counter(){
-  const [count, setCount] = useState(0);
-  return (
-    <button type="button" onClick={() => setCount((count) => count + 1)}>
-      <h1>Counter</h1>
-      <p>Count: {count}</p>
-      </button>
-      );
-}
 
-const GetDescription = (description)=>{
-  return (
-    <div style={{background: 'lightgreen'}}>
-    <h1>Son: </h1>
-    <p>{description.children}</p> 
-    </div>
-  )
-}
 function Call(){
   var carObj = {
     brand: "Ford",
@@ -58,25 +41,7 @@ function Counter({initialCount = 0}) {
       </button>
       );
 }
-// const GetDescription = ({ description, children })=>{
-//   return (
-//     <div style={{background: 'lightgreen'}}>
-//     <h1>Son: </h1>
-//     <p>{description}</p> 
-//     <h1>daughter: </h1>
-//     <p>{children}</p> 
-//     </div>
-//   )
-// }
-function CarList(){
-  const values = (a,b)=>{
-    alert(b.type);
-  }
 
-  return (
-    <button onClick={(event)=> values("car type event",event)}>Show List</button>
-  );
-}
 function GetName({name, setName}){
   return (
     <div>
@@ -86,9 +51,6 @@ function GetName({name, setName}){
     </div>
   );
 }
-const ChangesColor = ({color, name}) => {
-        return (<h1 style={{color: color}}>My Car is {name} : {color}</h1>);
-    }
 function CarAlert() {
   const style={
     color: "blue",
@@ -103,18 +65,75 @@ function CarAlert() {
   );
 }
 
+function MyFormContent(){
+  const [input,  setInput] = useState({
+    Name:'kaveen',
+    Age: 25,
+    Qualification: 'BSc',
+    country: 'Sri Lanka',
+    state: 'Western Province'
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInput((prevInput1) => ({
+      ...prevInput1,
+      [name]: value
+    }));
+  };
+const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(input);
+    alert(`Name: ${input.Name}, Age: ${input.Age}, Qualification: ${input.Qualification}, Country: ${input.country}, State: ${input.state}`);
+  }
 
+  return(
+    <form onSubmit={handleSubmit}>
+      <label>Name:</label><input type="text" name="Name" value={input.Name} onChange={handleChange} />
+      <p>Your name is: {input.Name}</p> 
+      <label>Age:</label><input type="text" name="Age" value={input.Age} onChange={handleChange} />
+      <p>Your age is: {input.Age}</p>
+      <label>Qualification:</label><input type="text" name="Qualification" value={input.Qualification} onChange={handleChange} />
+      <p>Your qualification is: {input.Qualification}</p>
+      <label>Country:</label><input type="text" name="country" value={input.country} onChange={handleChange} />
+      <p>Your country is: {input.country}</p>
+      <label>State:</label><input type="text" name="state" value={input.state} onChange={handleChange} />
+      <p>Your state is: {input.state}</p>
+      <button type="submit" onClick={handleSubmit}>Submit</button>
+    </form>
+  )
+}
+function MyformTextArea(){
+  const [text, setText1] = useState('');
+  const handlechange =(e)=>{
+    setText1(e.target.value);
+  }
+  return(
+    <div> TextArea:
+      <textarea value={text} onChange={handlechange} />
+      <p>Your text is: {text}</p>
+    </div>
+  );
+}
 
 function App() {
   
   const [count, setCount] = useState(0)
     const [name, setName] = useState("");
+    
+    
+    const element = <h1>Hello, world!</h1>;
 const model =["BMW", "Volvo", "Saab", "Ford"];
 var [s,...specificModel] = model;
 console.log("model: ", s, ", specificModel: ", specificModel);
   const c= new car(name || "BMW", "2014");
   // const hello = ()=> "Hello World!";
   window.addEventListener("load", c.changeColor);
+  const  carName = [
+      {id: 1, name: "BMW", year: 2014},
+      {id: 2, name: "Volvo", year: 2015},
+      {id: 3, name: "Saab", year: 2001},
+      {id: 4, name: "Ford", year: 2010}
+  ];
   return (
   <>
  <Call> sales car</Call> {/*-- call method deesn't work in input element text given in the elements */}
@@ -128,13 +147,17 @@ console.log("model: ", s, ", specificModel: ", specificModel);
     <c.MyList values={["BMW", "Volvo", "Saab", "Ford"]} />
     <Counter initialCount={11} />
     <GetName name={name} setName={setName} />
-{element}
+    {element}
     <CarAlert />
-    <CarManufacature name = 'Mustang' />
-    <ChangesColor color="red" name="BMW" />
-    <GetDescription description='contain some concept'>the concept of props is to pass data from parent component to child component.
-       The child component can access the data passed from the parent component through props.</GetDescription>
-       <CarList/>
+    
+    <h1>Car List:</h1>
+    <ul>
+      {carName.map((car) => (
+        <li key={car.id}>{car.name} - {car.year}</li>
+      ))}
+    </ul>
+    <MyFormContent />
+    <MyformTextArea />
   </>
     /*
     <>
